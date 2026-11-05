@@ -32,7 +32,10 @@ function calculateScore(exam: Exam, questionStates: Record<string, QuestionState
       } else {
         attempted++
         secAttempted++
-        if (state.selectedOption === q.correctAnswer) {
+        const isAnswerCorrect = Array.isArray(q.correctAnswer)
+          ? q.correctAnswer.includes(state.selectedOption)
+          : state.selectedOption === q.correctAnswer
+        if (isAnswerCorrect) {
           correct++
           secCorrect++
         } else {

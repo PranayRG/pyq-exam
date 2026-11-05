@@ -4,7 +4,7 @@ export interface Question {
   id: number
   question: string
   options: string[]
-  correctAnswer: number // index of the correct option (0-3)
+  correctAnswer: number | number[] // index (0-3) or array of acceptable indices if multi-key
   explanation?: string
 }
 

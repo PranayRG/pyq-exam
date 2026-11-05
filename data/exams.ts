@@ -1,6 +1,17 @@
 import { Exam } from '@/lib/types'
+import { exam31Dec2025Paper1 } from './ugc-net-31-dec-2025-paper1'
+
+// Clone for Forensic Science students so it appears under Forensic Science as well
+const exam31DecPaper1ForForensic: Exam = {
+  ...exam31Dec2025Paper1,
+  id: 'ugc-net-31-dec-2025-paper-1-forensic',
+  subject: 'Forensic Science',
+  title: 'UGC NET 31st Dec 2025 - Paper 1 (Official)',
+}
 
 export const exams: Exam[] = [
+  exam31Dec2025Paper1,
+  exam31DecPaper1ForForensic,
   {
     id: 'ugc-net-forensic-science-june-2024',
     title: 'UGC NET June 2024',

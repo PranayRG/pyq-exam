@@ -198,7 +198,9 @@ export default function ResultPage() {
                       const key = `${section.id}-${q.id}`
                       const state = attempt.questionStates[key]
                       const selected = state?.selectedOption ?? null
-                      const isCorrect = selected === q.correctAnswer
+                      const isCorrect = Array.isArray(q.correctAnswer)
+                        ? q.correctAnswer.includes(selected!)
+                        : selected === q.correctAnswer
                       const isAttempted = selected !== null
 
                       return (
@@ -224,7 +226,9 @@ export default function ResultPage() {
                           <div className="ml-11 space-y-1.5">
                             {q.options.map((option, optIdx) => {
                               const isSelectedOption = selected === optIdx
-                              const isCorrectOption = q.correctAnswer === optIdx
+                              const isCorrectOption = Array.isArray(q.correctAnswer)
+                                ? q.correctAnswer.includes(optIdx)
+                                : q.correctAnswer === optIdx
 
                               let optionClass = 'text-gray-600'
                               let icon = ''

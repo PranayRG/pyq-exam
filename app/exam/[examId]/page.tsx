@@ -216,20 +216,16 @@ export default function ExamPage() {
     // 1. Determine new status of CURRENT question
     if (action === 'save_next') {
       if (currentOption !== null) {
-        // If it was marked for review before, keep it as Answered & Marked for review
+        // "Save & Next" confirms the answer and clears any review tag -> Turns Green (ANSWERED)
         updatedStates[currentKey] = {
           selectedOption: currentOption,
-          status: prevStatus === QuestionStatus.MARKED_REVIEW || prevStatus === QuestionStatus.ANSWERED_MARKED
-            ? QuestionStatus.ANSWERED_MARKED
-            : QuestionStatus.ANSWERED,
+          status: QuestionStatus.ANSWERED,
         }
       } else {
-        // No option selected
+        // No option selected -> Turns Red (NOT_ANSWERED)
         updatedStates[currentKey] = {
           selectedOption: null,
-          status: prevStatus === QuestionStatus.MARKED_REVIEW || prevStatus === QuestionStatus.ANSWERED_MARKED
-            ? QuestionStatus.MARKED_REVIEW
-            : QuestionStatus.NOT_ANSWERED,
+          status: QuestionStatus.NOT_ANSWERED,
         }
       }
     } else if (action === 'mark_review') {
@@ -389,12 +385,10 @@ export default function ExamPage() {
     setSelectedOption(null)
     selectedOptionRef.current = null
 
-    // Clear ONLY current question
+    // Clear ONLY current question and reset its status to NOT_ANSWERED (Red)
     updatedStates[key] = {
       selectedOption: null,
-      status: prevStatus === QuestionStatus.ANSWERED_MARKED || prevStatus === QuestionStatus.MARKED_REVIEW
-        ? QuestionStatus.MARKED_REVIEW
-        : QuestionStatus.NOT_ANSWERED,
+      status: QuestionStatus.NOT_ANSWERED,
     }
 
     questionStatesRef.current = updatedStates

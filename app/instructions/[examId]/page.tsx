@@ -264,7 +264,11 @@ export default function InstructionsPage() {
             <button
               onClick={handleStartExam}
               disabled={!agreed}
-              className="btn-success flex items-center gap-2"
+              className={`px-8 py-3 rounded-lg font-bold text-base flex items-center gap-2 transition-all duration-200 ${
+                agreed
+                  ? 'bg-green-600 hover:bg-green-700 text-white shadow-lg cursor-pointer transform hover:-translate-y-0.5'
+                  : 'bg-gray-300 text-gray-500 cursor-not-allowed shadow-none border border-gray-400 opacity-60'
+              }`}
             >
               <CheckCircle2 className="w-5 h-5" />
               Start Exam

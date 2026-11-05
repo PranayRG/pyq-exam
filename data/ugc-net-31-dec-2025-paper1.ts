@@ -19,12 +19,13 @@ export const exam31Dec2025Paper1: Exam = {
           question: `Study carefully the table given below and answer the question asked here under:
 Number of students admitted in different academic programs of a college are provided year-wise:
 
-Year | B.A. | B.Sc. | B.B.A. | B.Com. | B.C.A.
-2021 | 150  |  25   |   50   |   45   |  75
-2022 | 225  |  40   |   45   |   62   |  70
-2023 | 450  |  65   |   30   |   90   |  73
-2024 | 470  |  73   |   35   |  105   |  70
-2025 | 500  |  80   |   36   |  132   |  74
+| Year | B.A. | B.Sc. | B.B.A. | B.Com. | B.C.A. |
+|---|---|---|---|---|---|
+| 2021 | 150 | 25 | 50 | 45 | 75 |
+| 2022 | 225 | 40 | 45 | 62 | 70 |
+| 2023 | 450 | 65 | 30 | 90 | 73 |
+| 2024 | 470 | 73 | 35 | 105 | 70 |
+| 2025 | 500 | 80 | 36 | 132 | 74 |
 
 In which year, the number of students have doubled with reference to the previous year in a particular program?`,
           options: ['2022', '2023', '2024', '2025'],
@@ -35,12 +36,13 @@ In which year, the number of students have doubled with reference to the previou
           id: 2,
           question: `Study the data from the table:
 
-Year | B.A. | B.Sc. | B.B.A. | B.Com. | B.C.A.
-2021 | 150  |  25   |   50   |   45   |  75
-2022 | 225  |  40   |   45   |   62   |  70
-2023 | 450  |  65   |   30   |   90   |  73
-2024 | 470  |  73   |   35   |  105   |  70
-2025 | 500  |  80   |   36   |  132   |  74
+| Year | B.A. | B.Sc. | B.B.A. | B.Com. | B.C.A. |
+|---|---|---|---|---|---|
+| 2021 | 150 | 25 | 50 | 45 | 75 |
+| 2022 | 225 | 40 | 45 | 62 | 70 |
+| 2023 | 450 | 65 | 30 | 90 | 73 |
+| 2024 | 470 | 73 | 35 | 105 | 70 |
+| 2025 | 500 | 80 | 36 | 132 | 74 |
 
 In how many year(s) does the 50% of total number of admitted students in a year is less than the number of students admitted in B.A. program that year?`,
           options: ['1', '2', '3', '4'],
@@ -51,12 +53,13 @@ In how many year(s) does the 50% of total number of admitted students in a year 
           id: 3,
           question: `Study the data from the table:
 
-Year | B.A. | B.Sc. | B.B.A. | B.Com. | B.C.A.
-2021 | 150  |  25   |   50   |   45   |  75
-2022 | 225  |  40   |   45   |   62   |  70
-2023 | 450  |  65   |   30   |   90   |  73
-2024 | 470  |  73   |   35   |  105   |  70
-2025 | 500  |  80   |   36   |  132   |  74
+| Year | B.A. | B.Sc. | B.B.A. | B.Com. | B.C.A. |
+|---|---|---|---|---|---|
+| 2021 | 150 | 25 | 50 | 45 | 75 |
+| 2022 | 225 | 40 | 45 | 62 | 70 |
+| 2023 | 450 | 65 | 30 | 90 | 73 |
+| 2024 | 470 | 73 | 35 | 105 | 70 |
+| 2025 | 500 | 80 | 36 | 132 | 74 |
 
 Which program has the second highest percentage increase from 2021 to 2025 in the number of admitted students?`,
           options: ['B.A.', 'B.Sc.', 'B.B.A.', 'B.Com.'],
@@ -67,12 +70,13 @@ Which program has the second highest percentage increase from 2021 to 2025 in th
           id: 4,
           question: `Study the data from the table:
 
-Year | B.A. | B.Sc. | B.B.A. | B.Com. | B.C.A.
-2021 | 150  |  25   |   50   |   45   |  75
-2022 | 225  |  40   |   45   |   62   |  70
-2023 | 450  |  65   |   30   |   90   |  73
-2024 | 470  |  73   |   35   |  105   |  70
-2025 | 500  |  80   |   36   |  132   |  74
+| Year | B.A. | B.Sc. | B.B.A. | B.Com. | B.C.A. |
+|---|---|---|---|---|---|
+| 2021 | 150 | 25 | 50 | 45 | 75 |
+| 2022 | 225 | 40 | 45 | 62 | 70 |
+| 2023 | 450 | 65 | 30 | 90 | 73 |
+| 2024 | 470 | 73 | 35 | 105 | 70 |
+| 2025 | 500 | 80 | 36 | 132 | 74 |
 
 In which year, the ratio of admitted students to its previous year admitted students, is the highest?`,
           options: ['2022', '2023', '2024', '2025'],
@@ -83,12 +87,13 @@ In which year, the ratio of admitted students to its previous year admitted stud
           id: 5,
           question: `Study the data from the table:
 
-Year | B.A. | B.Sc. | B.B.A. | B.Com. | B.C.A.
-2021 | 150  |  25   |   50   |   45   |  75
-2022 | 225  |  40   |   45   |   62   |  70
-2023 | 450  |  65   |   30   |   90   |  73
-2024 | 470  |  73   |   35   |  105   |  70
-2025 | 500  |  80   |   36   |  132   |  74
+| Year | B.A. | B.Sc. | B.B.A. | B.Com. | B.C.A. |
+|---|---|---|---|---|---|
+| 2021 | 150 | 25 | 50 | 45 | 75 |
+| 2022 | 225 | 40 | 45 | 62 | 70 |
+| 2023 | 450 | 65 | 30 | 90 | 73 |
+| 2024 | 470 | 73 | 35 | 105 | 70 |
+| 2025 | 500 | 80 | 36 | 132 | 74 |
 
 In which year, the ratio of admitted students in B. A. program to those in all the programs, is the lowest?`,
           options: ['2021', '2022', '2023', '2024'],
@@ -139,17 +144,12 @@ Choose the correct answer from the options given below:`,
           id: 8,
           question: `Match LIST-I with LIST-II:
 
-LIST-I:
-A. Reliability
-B. Validity
-C. Objectivity
-D. Norms
-
-LIST-II:
-I. Minimization of Personal Error
-II. Minimization of Constant Error
-III. Minimization of Variable Error
-IV. Minimization of Interpretive Error
+| LIST-I | LIST-II |
+|---|---|
+| A. Reliability | I. Minimization of Personal Error |
+| B. Validity | II. Minimization of Constant Error |
+| C. Objectivity | III. Minimization of Variable Error |
+| D. Norms | IV. Minimization of Interpretive Error |
 
 Choose the correct answer from the options given below:`,
           options: [
@@ -221,17 +221,12 @@ Choose the correct answer from the options given below:`,
           id: 13,
           question: `Match LIST-I with LIST-II:
 
-LIST-I (Scales of Measurement):
-A. Nominal
-B. Ordinal
-C. Ratio
-D. Interval
-
-LIST-II (Characteristics):
-I. Place items from least to most or lowest to highest
-II. Precisely how far apart the items are
-III. Denotes the categories only
-IV. Enables researcher to determine the proportions easily
+| LIST-I (Scales of Measurement) | LIST-II (Characteristics) |
+|---|---|
+| A. Nominal | I. Place items from least to most or lowest to highest |
+| B. Ordinal | II. Precisely how far apart the items are |
+| C. Ratio | III. Denotes the categories only |
+| D. Interval | IV. Enables researcher to determine the proportions easily |
 
 Choose the correct answer from the options given below:`,
           options: [
@@ -305,17 +300,12 @@ Choose the correct answer from the options given below:`,
           id: 18,
           question: `Match LIST-I with LIST-II:
 
-LIST-I (Type of Noise in Communication):
-A. Physiological
-B. Physical
-C. Psychological
-D. Semantic
-
-LIST-II (Examples):
-I. Words not understood
-II. Fatigue
-III. Prejudice
-IV. Bright Lights
+| LIST-I (Type of Noise in Communication) | LIST-II (Examples) |
+|---|---|
+| A. Physiological | I. Words not understood |
+| B. Physical | II. Fatigue |
+| C. Psychological | III. Prejudice |
+| D. Semantic | IV. Bright Lights |
 
 Choose the correct answer from the options given below:`,
           options: [
@@ -345,17 +335,12 @@ Choose the correct answer from the options given below:`,
           id: 21,
           question: `Match LIST-I with LIST-II:
 
-LIST-I (Number):
-A. 4
-B. 5
-C. 7
-D. 11
-
-LIST-II (Code):
-I. 126
-II. 65
-III. 1332
-IV. 344
+| LIST-I (Number) | LIST-II (Code) |
+|---|---|
+| A. 4 | I. 126 |
+| B. 5 | II. 65 |
+| C. 7 | III. 1332 |
+| D. 11 | IV. 344 |
 
 Choose the correct answer from the options given below:`,
           options: [
@@ -433,17 +418,12 @@ Choose the correct answer from the options given below:`,
           id: 27,
           question: `Match LIST-I with LIST-II:
 
-LIST-I (Syllogism):
-A. All M are P; Some M are S; therefore Some S are P
-B. No M are P; Some S are not M; therefore Some S are not P
-C. All P are M; All S are M; therefore All S are P
-D. Some P are M; Some S are M; therefore Some S are P
-
-LIST-II (Mood and Figure):
-I. EOO-1
-II. AAA-2
-III. III-2
-IV. AII-3
+| LIST-I (Syllogism) | LIST-II (Mood and Figure) |
+|---|---|
+| A. All M are P; Some M are S; therefore Some S are P | I. EOO-1 |
+| B. No M are P; Some S are not M; therefore Some S are not P | II. AAA-2 |
+| C. All P are M; All S are M; therefore All S are P | III. III-2 |
+| D. Some P are M; Some S are M; therefore Some S are P | IV. AII-3 |
 
 Choose the correct answer from the options given below:`,
           options: [
@@ -521,17 +501,12 @@ Choose the correct answer from the options given below:`,
           id: 33,
           question: `Match LIST-I with LIST-II:
 
-LIST-I:
-A. Digit keys
-B. Special character keys
-C. Non-printable keys
-D. Function keys
-
-LIST-II:
-I. Backspace, return, spacebar
-II. Numeric keypad
-III. F1, F2, ......, F12
-IV. +, @, &
+| LIST-I | LIST-II |
+|---|---|
+| A. Digit keys | I. Backspace, return, spacebar |
+| B. Special character keys | II. Numeric keypad |
+| C. Non-printable keys | III. F1, F2, ......, F12 |
+| D. Function keys | IV. +, @, & |
 
 Choose the correct answer from the options given below:`,
           options: [
@@ -606,17 +581,12 @@ Choose the correct answer from the options given below:`,
           id: 38,
           question: `Match LIST-I with LIST-II:
 
-LIST-I (Mission LiFE objectives):
-A. Energy saved
-B. E-waste reduced
-C. Healthy lifestyles adopted
-D. Single use plastic reduced
-
-LIST-II (Action):
-I. Use menstrual cups instead of sanitary napkins
-II. Start biodiversity conservation at community level
-III. Use carpooling with friends and colleagues
-IV. Prefer cloud storage over a pen drive/hard drive
+| LIST-I (Mission LiFE objectives) | LIST-II (Action) |
+|---|---|
+| A. Energy saved | I. Use menstrual cups instead of sanitary napkins |
+| B. E-waste reduced | II. Start biodiversity conservation at community level |
+| C. Healthy lifestyles adopted | III. Use carpooling with friends and colleagues |
+| D. Single use plastic reduced | IV. Prefer cloud storage over a pen drive/hard drive |
 
 Choose the correct answer from the options given below:`,
           options: [
@@ -702,17 +672,12 @@ Choose the correct answer from the options given below:`,
           id: 45,
           question: `Match LIST-I with LIST-II:
 
-LIST-I (Commission on Education):
-A. The Education Commission
-B. University Education Commission
-C. The Knowledge Commission
-D. Secondary Education Commission
-
-LIST-II (Major Recommendation):
-I. Setting up of the University Grants Commission
-II. 12th Class should be attached to the university
-III. Creation of Indian Educational Services
-IV. Establishing an independent Regulatory Authority for Higher Education
+| LIST-I (Commission on Education) | LIST-II (Major Recommendation) |
+|---|---|
+| A. The Education Commission | I. Setting up of the University Grants Commission |
+| B. University Education Commission | II. 12th Class should be attached to the university |
+| C. The Knowledge Commission | III. Creation of Indian Educational Services |
+| D. Secondary Education Commission | IV. Establishing an independent Regulatory Authority for Higher Education |
 
 Choose the correct answer from the options given below:`,
           options: [

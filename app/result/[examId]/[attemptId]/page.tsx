@@ -6,6 +6,7 @@ import { BookOpen, ArrowLeft, Trophy, Target, XCircle, MinusCircle, CheckCircle2
 import { getCurrentUser, getAttempts } from '@/lib/storage'
 import { getExamById } from '@/data/exams'
 import { User, Exam, ExamAttempt, QuestionStatus } from '@/lib/types'
+import QuestionRenderer from '@/components/QuestionRenderer'
 
 export default function ResultPage() {
   const router = useRouter()
@@ -220,7 +221,9 @@ export default function ResultPage() {
                             }`}>
                               {qIdx + 1}
                             </span>
-                            <p className="text-sm text-gray-800 font-medium">{q.question}</p>
+                            <div className="flex-1 text-sm text-gray-800 font-medium">
+                              <QuestionRenderer questionText={q.question} image={q.image} />
+                            </div>
                           </div>
 
                           <div className="ml-11 space-y-1.5">

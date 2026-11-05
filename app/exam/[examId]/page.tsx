@@ -6,6 +6,7 @@ import { Clock, BookOpen, AlertTriangle, ChevronLeft, ChevronRight, CheckCircle2
 import { getCurrentUser, getActiveAttempt, saveAttempt } from '@/lib/storage'
 import { getExamById } from '@/data/exams'
 import { User, Exam, ExamAttempt, QuestionStatus, ExamScore, SectionScore, QuestionState } from '@/lib/types'
+import QuestionRenderer from '@/components/QuestionRenderer'
 
 function calculateScore(exam: Exam, questionStates: Record<string, QuestionState>): ExamScore {
   let totalQuestions = 0
@@ -533,9 +534,9 @@ export default function ExamPage() {
   const isTimeWarning = timeRemaining <= 300 // Last 5 minutes warning
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col font-sans select-none">
-      {/* Top Header Bar */}
-      <header className="bg-white shadow border-b-2 border-blue-600 sticky top-0 z-20">
+    <div className="h-screen w-screen overflow-hidden bg-gray-100 flex flex-col font-sans select-none">
+      {/* Top Header Bar (Fixed) */}
+      <header className="flex-shrink-0 bg-white shadow border-b-2 border-blue-600 z-20">
         <div className="px-4 sm:px-6">
           <div className="flex items-center justify-between h-14">
             <div className="flex items-center gap-3">
@@ -561,11 +562,11 @@ export default function ExamPage() {
       </header>
 
       {/* Main Examination Layout */}
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex overflow-hidden min-h-0">
         {/* Left Area: Questions & Controls */}
-        <div className="flex-1 flex flex-col min-w-0 bg-gray-50">
-          {/* Section Navigation Tabs */}
-          <div className="bg-white border-b border-gray-200 px-4 sm:px-6 flex items-center justify-between">
+        <div className="flex-1 flex flex-col min-w-0 bg-gray-50 h-full">
+          {/* Section Navigation Tabs (Fixed) */}
+          <div className="flex-shrink-0 bg-white border-b border-gray-200 px-4 sm:px-6 flex items-center justify-between">
             <div className="flex gap-2">
               {exam.sections.map((section, idx) => (
                 <button
@@ -588,8 +589,8 @@ export default function ExamPage() {
             </div>
           </div>
 
-          {/* Question Body */}
-          <div className="flex-1 overflow-auto p-4 sm:p-6">
+          {/* Question Body (Scrollable inside, never causes bottom buttons to scroll) */}
+          <div className="flex-1 overflow-y-auto p-4 sm:p-6 min-h-0">
             <div className="bg-white rounded-xl shadow border border-gray-200 p-6 max-w-4xl mx-auto">
               {/* Question Header */}
               <div className="flex items-center justify-between pb-3 mb-4 border-b border-gray-200">
@@ -606,9 +607,12 @@ export default function ExamPage() {
                 </div>
               </div>
 
-              {/* Question Text */}
-              <div className="text-gray-900 text-base font-medium leading-relaxed mb-6 whitespace-pre-line">
-                {currentQuestion.question}
+              {/* Formatted Question Text & Real HTML Tables */}
+              <div className="mb-6">
+                <QuestionRenderer
+                  questionText={currentQuestion.question}
+                  image={currentQuestion.image}
+                />
               </div>
 
               {/* 4 Options */}
@@ -647,8 +651,8 @@ export default function ExamPage() {
             </div>
           </div>
 
-          {/* Action Navigation Footer */}
-          <div className="bg-white border-t border-gray-200 px-4 sm:px-6 py-3.5 shadow-lg">
+          {/* Action Navigation Footer (100% Permanently Sticky at Bottom) */}
+          <div className="flex-shrink-0 bg-white border-t border-gray-200 px-4 sm:px-6 py-3 shadow-lg z-10">
             <div className="flex flex-wrap items-center justify-between gap-3 max-w-4xl mx-auto">
               {/* Left Action Buttons */}
               <div className="flex items-center gap-2">

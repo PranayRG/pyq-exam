@@ -6,6 +6,7 @@ export interface Question {
   options: string[]
   correctAnswer: number | number[] // index (0-3) or array of acceptable indices if multi-key
   explanation?: string
+  image?: string // optional image path or url for complex diagrams/tables
 }
 
 export interface Section {

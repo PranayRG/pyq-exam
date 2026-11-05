@@ -6,7 +6,7 @@ import { BookOpen, ArrowLeft, Trophy, Target, XCircle, MinusCircle, CheckCircle2
 import { getCurrentUser, getAttempts } from '@/lib/storage'
 import { getExamById } from '@/data/exams'
 import { User, Exam, ExamAttempt, QuestionStatus } from '@/lib/types'
-import QuestionRenderer from '@/components/QuestionRenderer'
+import QuestionRenderer, { renderMathAndText } from '@/components/QuestionRenderer'
 
 export default function ResultPage() {
   const router = useRouter()
@@ -252,7 +252,7 @@ export default function ResultPage() {
                                 <div key={optIdx} className={`flex items-center gap-2 text-sm ${optionClass}`}>
                                   <span className="w-5 text-right">{icon}</span>
                                   <span className="font-medium text-gray-400">{String.fromCharCode(65 + optIdx)}.</span>
-                                  <span>{option}</span>
+                                  <span>{renderMathAndText(option)}</span>
                                 </div>
                               )
                             })}

@@ -6,7 +6,7 @@ import { Clock, BookOpen, AlertTriangle, ChevronLeft, ChevronRight, CheckCircle2
 import { getCurrentUser, getActiveAttempt, saveAttempt } from '@/lib/storage'
 import { getExamById } from '@/data/exams'
 import { User, Exam, ExamAttempt, QuestionStatus, ExamScore, SectionScore, QuestionState } from '@/lib/types'
-import QuestionRenderer from '@/components/QuestionRenderer'
+import QuestionRenderer, { renderMathAndText } from '@/components/QuestionRenderer'
 
 function calculateScore(exam: Exam, questionStates: Record<string, QuestionState>): ExamScore {
   let totalQuestions = 0
@@ -642,7 +642,7 @@ export default function ExamPage() {
                         {String.fromCharCode(65 + optIdx)}.
                       </span>
                       <span className={`text-sm leading-relaxed ${isChecked ? 'text-blue-950 font-semibold' : 'text-gray-800'}`}>
-                        {option}
+                        {renderMathAndText(option)}
                       </span>
                     </label>
                   )

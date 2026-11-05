@@ -356,10 +356,10 @@ Choose the correct answer from the options given below:`,
           id: 22,
           question: `Identify the correct mathematical statements:
 
-A. The expression 1/(5×6) + 1/(6×7) + 1/(7×8) + ...... + 1/(24×25) is equal to 4/25
+A. The expression $\\frac{1}{5 \\times 6} + \\frac{1}{6 \\times 7} + \\frac{1}{7 \\times 8} + \\dots + \\frac{1}{24 \\times 25}$ is equal to $\\frac{4}{25}$
 B. Of the three numbers, second is twice the first and is also thrice of the third. If the average of three numbers is 55, then largest number is 90.
-C. If (a + b):(b + c):(c + a) = 6:7:8 and a + b + c = 14, then value of c is 8
-D. (0.2×0.2 + 0.02×0.02 - 0.4×0.02) / 0.18 is equal to 0.09
+C. If $(a + b) : (b + c) : (c + a) = 6 : 7 : 8$ and $a + b + c = 14$, then value of $c$ is 8
+D. $\\frac{0.2 \\times 0.2 + 0.02 \\times 0.02 - 0.4 \\times 0.02}{0.18}$ is equal to 0.09
 
 Choose the correct answer from the options given below:`,
           options: [
@@ -375,11 +375,11 @@ Choose the correct answer from the options given below:`,
           id: 23,
           question: `Arrange the following fractions in descending order:
 
-A. 2/5
-B. 3/8
-C. 5/13
-D. 6/11
-E. 4/9
+A. $\\frac{2}{5}$
+B. $\\frac{3}{8}$
+C. $\\frac{5}{13}$
+D. $\\frac{6}{11}$
+E. $\\frac{4}{9}$
 
 Choose the correct answer from the options given below:`,
           options: [

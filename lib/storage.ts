@@ -7,23 +7,30 @@ const STORAGE_KEYS = {
   ATTEMPTS: 'ugc_net_attempts',
 }
 
+// Generate valid RFC4122 v4 UUID for Supabase uuid columns
+export function generateId(): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID()
+  }
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0
+    const v = c === 'x' ? r : (r & 0x3) | 0x8
+    return v.toString(16)
+  })
+}
+
 // Helper to convert database row to ExamAttempt
 function rowToAttempt(row: any): ExamAttempt {
-  const responsesData = row.responses || {}
-  const questionStates = responsesData.questionStates || responsesData
-  const currentSectionIndex = typeof responsesData.currentSectionIndex === 'number' ? responsesData.currentSectionIndex : 0
-  const currentQuestionIndex = typeof responsesData.currentQuestionIndex === 'number' ? responsesData.currentQuestionIndex : 0
-
   return {
     id: row.id,
     userId: row.user_id,
     examId: row.exam_id,
     startedAt: row.started_at,
     completedAt: row.completed_at || undefined,
-    timeRemainingSeconds: row.time_remaining,
-    questionStates: questionStates,
-    currentSectionIndex: currentSectionIndex,
-    currentQuestionIndex: currentQuestionIndex,
+    timeRemainingSeconds: row.time_remaining_seconds,
+    questionStates: row.question_states || {},
+    currentSectionIndex: row.current_section_index || 0,
+    currentQuestionIndex: row.current_question_index || 0,
     completed: row.completed,
     score: row.score || undefined,
   }
@@ -81,12 +88,7 @@ export async function findUser(username: string, password: string): Promise<User
 
   // 2. Fallback to localStorage
   const localUsers = getLocalUsers()
-  const localUser = localUsers.find(u => u.username === cleanUsername && u.password === password) || null
-  if (localUser) {
-    // Sync local user up to Supabase in the background
-    saveUserToSupabase(localUser).catch(() => {})
-  }
-  return localUser
+  return localUsers.find(u => u.username === cleanUsername && u.password === password) || null
 }
 
 export async function findUserByUsername(username: string): Promise<User | null> {
@@ -111,35 +113,23 @@ export async function findUserByUsername(username: string): Promise<User | null>
   return localUsers.find(u => u.username === cleanUsername) || null
 }
 
-async function saveUserToSupabase(user: User): Promise<void> {
-  await supabase.from('users').upsert({
+export async function saveUser(user: User): Promise<void> {
+  // Always save to Supabase
+  const { error } = await supabase.from('users').insert({
     id: user.id,
     username: user.username,
     password: user.password,
     name: user.name,
     created_at: user.createdAt,
   })
-}
 
-export async function saveUser(user: User): Promise<void> {
-  // Save locally first
-  saveLocalUser(user)
-
-  // Save to Supabase
-  try {
-    const { error } = await supabase.from('users').insert({
-      id: user.id,
-      username: user.username,
-      password: user.password,
-      name: user.name,
-      created_at: user.createdAt,
-    })
-    if (error) {
-      console.warn('Supabase saveUser error:', error)
-    }
-  } catch (err) {
-    console.warn('Could not save user to Supabase:', err)
+  if (error) {
+    console.error('Supabase saveUser error:', error)
+    throw new Error(error.message)
   }
+
+  // Save locally
+  saveLocalUser(user)
 }
 
 export function setCurrentUser(user: User): void {
@@ -183,13 +173,11 @@ export async function saveAttemptToSupabase(attempt: ExamAttempt): Promise<void>
       exam_id: attempt.examId,
       started_at: attempt.startedAt,
       completed_at: attempt.completedAt || null,
-      time_remaining: attempt.timeRemainingSeconds,
+      time_remaining_seconds: attempt.timeRemainingSeconds,
+      question_states: attempt.questionStates,
+      current_section_index: attempt.currentSectionIndex,
+      current_question_index: attempt.currentQuestionIndex,
       completed: attempt.completed,
-      responses: {
-        questionStates: attempt.questionStates,
-        currentSectionIndex: attempt.currentSectionIndex,
-        currentQuestionIndex: attempt.currentQuestionIndex,
-      },
       score: attempt.score || null,
     })
     if (error) {
@@ -203,7 +191,7 @@ export async function saveAttemptToSupabase(attempt: ExamAttempt): Promise<void>
 // Hybrid save: saves immediately to localStorage, then updates Supabase
 export function saveAttempt(attempt: ExamAttempt): void {
   saveLocalAttempt(attempt)
-  // Background sync to Supabase without blocking UI
+  // Background sync to Supabase without blocking CBT UI
   saveAttemptToSupabase(attempt).catch(() => {})
 }
 
@@ -257,8 +245,4 @@ export function getLatestAttempt(userId: string, examId: string): ExamAttempt | 
 export function getActiveAttempt(userId: string, examId: string): ExamAttempt | null {
   const attempts = getAttemptsByExam(userId, examId)
   return attempts.find(a => !a.completed) || null
-}
-
-export function generateId(): string {
-  return Date.now().toString(36) + Math.random().toString(36).substring(2)
 }

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { BookOpen, User, Lock, UserPlus, LogIn } from 'lucide-react'
-import { findUser, findUserByUsername, saveUser, setCurrentUser, generateId, getCurrentUser } from '@/lib/storage'
+import { findUser, findUserByUsername, saveUser, setCurrentUser, generateId, getCurrentUser, syncAttemptsFromSupabase } from '@/lib/storage'
 import { useEffect } from 'react'
 
 export default function LoginPage() {
@@ -14,6 +14,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
+  const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
     // If already logged in, redirect to dashboard
@@ -25,47 +26,61 @@ export default function LoginPage() {
     }
   }, [router])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+    setSubmitting(true)
 
-    if (isLogin) {
-      // Login
-      if (!username.trim() || !password.trim()) {
-        setError('Please enter both username and password')
-        return
+    try {
+      if (isLogin) {
+        // Login
+        if (!username.trim() || !password.trim()) {
+          setError('Please enter both username and password')
+          setSubmitting(false)
+          return
+        }
+        const user = await findUser(username.trim(), password)
+        if (!user) {
+          setError('Invalid username or password')
+          setSubmitting(false)
+          return
+        }
+        setCurrentUser(user)
+        // Sync user attempts from cloud
+        await syncAttemptsFromSupabase(user.id)
+        router.push('/dashboard')
+      } else {
+        // Register
+        if (!name.trim() || !username.trim() || !password.trim()) {
+          setError('Please fill in all fields')
+          setSubmitting(false)
+          return
+        }
+        if (password.length < 4) {
+          setError('Password must be at least 4 characters')
+          setSubmitting(false)
+          return
+        }
+        const existing = await findUserByUsername(username.trim())
+        if (existing) {
+          setError('Username already exists. Please choose a different one.')
+          setSubmitting(false)
+          return
+        }
+        const newUser = {
+          id: generateId(),
+          name: name.trim(),
+          username: username.trim(),
+          password: password,
+          createdAt: new Date().toISOString(),
+        }
+        await saveUser(newUser)
+        setCurrentUser(newUser)
+        router.push('/dashboard')
       }
-      const user = findUser(username.trim(), password)
-      if (!user) {
-        setError('Invalid username or password')
-        return
-      }
-      setCurrentUser(user)
-      router.push('/dashboard')
-    } else {
-      // Register
-      if (!name.trim() || !username.trim() || !password.trim()) {
-        setError('Please fill in all fields')
-        return
-      }
-      if (password.length < 4) {
-        setError('Password must be at least 4 characters')
-        return
-      }
-      if (findUserByUsername(username.trim())) {
-        setError('Username already exists. Please choose a different one.')
-        return
-      }
-      const newUser = {
-        id: generateId(),
-        name: name.trim(),
-        username: username.trim(),
-        password: password,
-        createdAt: new Date().toISOString(),
-      }
-      saveUser(newUser)
-      setCurrentUser(newUser)
-      router.push('/dashboard')
+    } catch (err: any) {
+      setError(err?.message || 'Something went wrong. Please try again.')
+      setSubmitting(false)
     }
   }
 
@@ -175,8 +190,15 @@ export default function LoginPage() {
               </div>
             )}
 
-            <button type="submit" className="btn-primary w-full">
-              {isLogin ? 'Login' : 'Create Account'}
+            <button type="submit" disabled={submitting} className="btn-primary w-full disabled:opacity-50">
+              {submitting ? (
+                <span className="flex items-center justify-center gap-2">
+                  <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></span>
+                  {isLogin ? 'Signing in...' : 'Creating account...'}
+                </span>
+              ) : (
+                isLogin ? 'Login' : 'Create Account'
+              )}
             </button>
           </form>
 

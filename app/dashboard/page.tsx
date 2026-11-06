@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { BookOpen, LogOut, ChevronDown, Clock, Award, FileText, Play, RotateCcw, Eye } from 'lucide-react'
-import { getCurrentUser, logout, getAttemptsByExam } from '@/lib/storage'
+import { getCurrentUser, logout, getAttemptsByExam, syncAttemptsFromSupabase } from '@/lib/storage'
 import { User, ExamAttempt } from '@/lib/types'
 import { exams, getAvailableExamTypes, getAvailableSubjects, getExamsBySubject } from '@/data/exams'
 
@@ -13,6 +13,7 @@ export default function DashboardPage() {
   const [selectedExam, setSelectedExam] = useState('')
   const [selectedSubject, setSelectedSubject] = useState('')
   const [loading, setLoading] = useState(true)
+  const [syncVersion, setSyncVersion] = useState(0)
 
   useEffect(() => {
     const currentUser = getCurrentUser()
@@ -32,6 +33,11 @@ export default function DashboardPage() {
       }
     }
     setLoading(false)
+
+    // Sync cloud attempts in background
+    syncAttemptsFromSupabase(currentUser.id).then(() => {
+      setSyncVersion(v => v + 1)
+    })
   }, [router])
 
   const handleLogout = () => {

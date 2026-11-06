@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import { BookOpen, ArrowLeft, Trophy, Target, XCircle, MinusCircle, CheckCircle2, Eye, ChevronDown, ChevronUp } from 'lucide-react'
-import { getCurrentUser, getAttempts } from '@/lib/storage'
+import { getCurrentUser, getAttempts, syncAttemptsFromSupabase } from '@/lib/storage'
 import { getExamById } from '@/data/exams'
 import { User, Exam, ExamAttempt, QuestionStatus } from '@/lib/types'
 import QuestionRenderer, { renderMathAndText } from '@/components/QuestionRenderer'
@@ -22,19 +22,28 @@ export default function ResultPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const currentUser = getCurrentUser()
-    if (!currentUser) { router.push('/'); return }
-    setUser(currentUser)
+    async function loadData() {
+      const currentUser = getCurrentUser()
+      if (!currentUser) { router.push('/'); return }
+      setUser(currentUser)
 
-    const examData = getExamById(examId)
-    if (!examData) { router.push('/dashboard'); return }
-    setExam(examData)
+      const examData = getExamById(examId)
+      if (!examData) { router.push('/dashboard'); return }
+      setExam(examData)
 
-    const attempts = getAttempts()
-    const found = attempts.find(a => a.id === attemptId && a.userId === currentUser.id)
-    if (!found || !found.completed || !found.score) { router.push('/dashboard'); return }
-    setAttempt(found)
-    setLoading(false)
+      const attempts = getAttempts()
+      let found = attempts.find(a => a.id === attemptId && a.userId === currentUser.id)
+      if (!found) {
+        const synced = await syncAttemptsFromSupabase(currentUser.id)
+        found = synced.find(a => a.id === attemptId && a.userId === currentUser.id)
+      }
+
+      if (!found || !found.completed || !found.score) { router.push('/dashboard'); return }
+      setAttempt(found)
+      setLoading(false)
+    }
+
+    loadData()
   }, [examId, attemptId, router])
 
   const toggleSection = (sectionId: string) => {
